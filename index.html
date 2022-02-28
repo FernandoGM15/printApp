@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="assets/lib/filepond-master/dist/filepond.min.css">
+    <link rel="stylesheet" href="assets/lib/bootstrap-5.0.2/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Print App</title>
+
+    <style>
+        body {
+            background-image: url('assets/images/background.jpg');
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+        }
+
+
+        .filepond--panel {
+            background-color: rgba(0, 0, 0, .5) !important;
+            height: 25% !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Print App</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <input type="file" class="filepond" name="filepond" id="images" multiple data-allow-reorder="true">
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center align-items-end">
+            <div class="col-auto">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        ¿Deseas impirimir al imagenes al taño de la hoja?
+                    </label>
+                </div>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-success" onclick="makePdf();">Imprimir</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+<script src="assets/lib/filepond-master/dist/filepond.min.js"></script>
+<script src="assets/lib/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    FilePond.registerPlugin(FilePondPluginFileEncode);
+
+    const files = FilePond.create(
+        document.querySelector('input'),
+        {
+            labelIdle: `Arrastrar o <span class="filepond--label-action">Buscar</span> Imagenes`,
+
+        }
+    );
+
+    let makePdf = () => {
+        let images = files.getFiles();
+        images.forEach(image => {
+            console.log(image.getFileEncodeDataURL());
+        });
+    }
+</script>
+
+</html>
